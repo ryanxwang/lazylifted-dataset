@@ -51,14 +51,16 @@ class Instance:
         )
 
 
-def make_instance_and_plan(blocks: int, goal_count: int) -> (Instance, List[str]):
+def make_instance_and_plan(blocks: int, goal_count: int) -> Tuple[Instance, str]:
     instance = Instance(
         blocks,
         State([[i] for i in range(1, blocks + 1)]),
         Goal({(i, i + 1) for i in range(1, goal_count + 1)}, set(), set()),
     )
 
-    plan = []
+    plan = "\n".join(
+        [f"(pickup b{i})\n(stack b{i} b{i+1})" for i in range(goal_count, 0, -1)]
+    )
 
     return (instance, plan)
 
@@ -91,8 +93,8 @@ def main():
     with open(f"{args.outdir}/p{args.id:02}.pddl", "w") as f:
         f.write(instance_str)
     if args.plandir is not None:
-        with open(f"{args.plandir}/p{args.id:02}.plan", "w") as f:
-            f.write("\n".join(plan))
+        with open(f"{args.plandir}/p{args.id:02}.plan", "w+") as f:
+            f.write(plan)
 
 
 if __name__ == "__main__":
