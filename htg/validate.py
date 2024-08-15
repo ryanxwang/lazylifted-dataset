@@ -18,6 +18,9 @@ def main():
         if instance_file.endswith(".pddl"):
             instance_path = os.path.join(args.instance_dir, instance_file)
             plan_path = f"{args.plan_dir}/{instance_file[:-5]}.plan"
+            if not os.path.exists(plan_path):
+                print(f"Plan not found: {plan_path}")
+                continue
             command = f"$VAL_PATH/Validate {args.domain} {instance_path} {plan_path}"
 
             out, err = subprocess.Popen(
