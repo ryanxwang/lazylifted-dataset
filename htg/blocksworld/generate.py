@@ -1,6 +1,7 @@
-from blocksworld import make_instance
 from argparse import ArgumentParser
 import os
+
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 CONFIG = {
     "training": {
@@ -17,7 +18,8 @@ CONFIG = {
 def main():
     parser = ArgumentParser(description="Blocksworld HTG instances generator")
     parser.add_argument(
-        "-o", "--output",
+        "-o",
+        "--output",
         type=str,
         help="output directory",
     )
@@ -35,8 +37,9 @@ def main():
         for i in range(num_instances):
             blocks = CONFIG[path]["blocks"][i]
             goal_count = CONFIG[path]["goal_count"][i]
-            with open(f"{full_path}/p{i+1:02}.pddl", "w") as f:
-                f.write(make_instance(blocks, goal_count, i))
+            os.system(
+                f"python3 {THIS_DIR}/blocksworld.py -b {blocks} -g {goal_count} -i {i} --outdir {full_path}"
+            )
 
 
 if __name__ == "__main__":

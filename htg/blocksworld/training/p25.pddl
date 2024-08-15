@@ -1,8 +1,8 @@
-;; blocks=29 goal_count=2 instance_id=24
+;; blocks=30 goal_count=3 instance_id=25
 
-(define (problem blocksworld-24)
+(define (problem blocksworld-25)
   (:domain blocksworld)
-  (:objects b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 - object)
+  (:objects b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 b20 b21 b22 b23 b24 b25 b26 b27 b28 b29 b30 - object)
   (:init
     (clear b1)
     (on-table b1)
@@ -61,7 +61,10 @@
     (clear b28)
     (on-table b28)
     (clear b29)
-    (on-table b29)    (arm-empty))
+    (on-table b29)
+    (clear b30)
+    (on-table b30)    (arm-empty))
   (:goal (and
     (on b2 b3)
-    (on b1 b2))))
+    (on b1 b2)
+    (on b3 b4))))
