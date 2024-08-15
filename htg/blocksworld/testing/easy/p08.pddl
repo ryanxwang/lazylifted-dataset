@@ -343,8 +343,8 @@
     (clear b169)
     (on-table b169)
     (clear b170)
-    (on-table b170))
-  (:goal
+    (on-table b170)    (arm-empty))
+  (:goal (and
     (on b2 b3)
     (on b1 b2)
-    (on b3 b4)))
+    (on b3 b4))))

@@ -173,7 +173,7 @@
     (clear b84)
     (on-table b84)
     (clear b85)
-    (on-table b85))
-  (:goal
+    (on-table b85)    (arm-empty))
+  (:goal (and
     (on b2 b3)
-    (on b1 b2)))
+    (on b1 b2))))

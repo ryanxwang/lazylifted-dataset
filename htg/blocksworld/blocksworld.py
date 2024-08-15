@@ -37,14 +37,14 @@ class Instance:
                 f"    (clear b{i})\n    (on-table b{i})"
                 for i in range(1, self.blocks + 1)
             ]
-        )
+        ) + "    (arm-empty)"
         goal = "\n".join([f"    {line}" for line in self.goal.to_pddl()])
         return (
             f"(define (problem blocksworld-{instance_id})\n"
             f"  (:domain blocksworld)\n"
             f"  (:objects {objects})\n"
             f"  (:init\n{init})\n"
-            f"  (:goal\n{goal}))\n"
+            f"  (:goal (and\n{goal})))\n"
         )
 
 

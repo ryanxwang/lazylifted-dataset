@@ -1,4 +1,5 @@
 from blocksworld import make_instance
+from argparse import ArgumentParser
 import os
 
 CONFIG = {
@@ -14,18 +15,27 @@ CONFIG = {
 
 
 def main():
+    parser = ArgumentParser(description="Blocksworld HTG instances generator")
+    parser.add_argument(
+        "-o", "--output",
+        type=str,
+        help="output directory",
+    )
+    args = parser.parse_args()
+
     for path in CONFIG:
-        if os.path.exists(path):
+        full_path = f"{args.output}/{path}"
+        if os.path.exists(full_path):
             # remove the directory and its contents
-            os.system(f"rm -r {path}")
-        os.mkdir(path)
+            os.system(f"rm -r {full_path}")
+        os.mkdir(full_path)
 
         assert len(CONFIG[path]["blocks"]) == len(CONFIG[path]["goal_count"])
         num_instances = len(CONFIG[path]["blocks"])
         for i in range(num_instances):
             blocks = CONFIG[path]["blocks"][i]
             goal_count = CONFIG[path]["goal_count"][i]
-            with open(f"{path}/p{i+1:02}.pddl", "w") as f:
+            with open(f"{full_path}/p{i+1:02}.pddl", "w") as f:
                 f.write(make_instance(blocks, goal_count, i))
 
 

@@ -723,9 +723,9 @@
     (clear b359)
     (on-table b359)
     (clear b360)
-    (on-table b360))
-  (:goal
+    (on-table b360)    (arm-empty))
+  (:goal (and
     (on b2 b3)
     (on b4 b5)
     (on b1 b2)
-    (on b3 b4)))
+    (on b3 b4))))

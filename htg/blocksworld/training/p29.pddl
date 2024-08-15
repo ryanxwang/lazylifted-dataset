@@ -69,7 +69,7 @@
     (clear b32)
     (on-table b32)
     (clear b33)
-    (on-table b33))
-  (:goal
+    (on-table b33)    (arm-empty))
+  (:goal (and
     (on b2 b3)
-    (on b1 b2)))
+    (on b1 b2))))
