@@ -5,13 +5,12 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 CONFIG = {
     "training": {
-        "blocks": [i for i in range(5, 105)],
-        "goal_count": [2, 3] * 50,
-        "plandir": "training_plans",
+        "blocks": [i for i in range(20, 120)],
+        "starting_seed": 2024
     },
     "testing/easy": {
         "blocks": [10 * i + 100 for i in range(30)],
-        "goal_count": [2, 3, 4] * 10,
+        "starting_seed": 2024,
     },
 }
 
@@ -33,24 +32,14 @@ def main():
             os.system(f"rm -r {full_path}")
         os.mkdir(full_path)
 
-        if "plandir" in CONFIG[path]:
-            full_plandir = f"{args.output}/{CONFIG[path]['plandir']}"
-            if os.path.exists(full_plandir):
-                os.system(f"rm -r {full_plandir}")
-            os.mkdir(full_plandir)
-        else:
-            full_plandir = None
-
-        assert len(CONFIG[path]["blocks"]) == len(CONFIG[path]["goal_count"])
         num_instances = len(CONFIG[path]["blocks"])
+        seed = CONFIG[path]["starting_seed"]
         for i in range(num_instances):
             blocks = CONFIG[path]["blocks"][i]
-            goal_count = CONFIG[path]["goal_count"][i]
 
-            command = f"python3 {THIS_DIR}/blocksworld.py -b {blocks} -g {goal_count} -i {i} --outdir {full_path}"
-            if full_plandir is not None:
-                command += f" --plandir {full_plandir}"
+            command = f"python3 {THIS_DIR}/blocksworld.py -b {blocks} --seed {seed} -id {i} --out {full_path}"
             os.system(command)
+            seed += 1
 
 
 if __name__ == "__main__":

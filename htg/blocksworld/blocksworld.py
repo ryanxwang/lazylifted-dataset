@@ -1,100 +1,123 @@
-from dataclasses import dataclass
-from typing import List, Tuple, Set
-from argparse import ArgumentParser
-
-Block = int
-
-
-@dataclass
-class State:
-    towers: List[List[Block]]
+#!/usr/bin/env python
+import sys
+import random
+import argparse
+from typing import Dict
+import os
 
 
-@dataclass
-class Goal:
-    on: Set[Tuple[Block, Block]]
-    on_table: Set[Block]
-    clear: Set[Block]
-
-    def to_pddl(self) -> List[str]:
-        return (
-            [f"(on b{i} b{j})" for i, j in self.on]
-            + [f"(on-table b{i})" for i in self.on_table]
-            + [f"(clear b{i})" for i in self.clear]
-        )
+def get_block(b: int) -> str:
+    return f"b{b}"
 
 
-@dataclass
-class Instance:
-    blocks: int  # the blocks will be numbered from 1 to blocks
-    initial_state: State
-    goal: Goal
+def get_objects(blocks: int, **kwargs: dict) -> str:
+    return " ".join([get_block(i) for i in range(1, 1 + blocks)]) + " - object"
 
-    def to_pddl(self, instance_id: int) -> str:
-        objects = " ".join([f"b{i}" for i in range(1, self.blocks + 1)]) + " - object"
-        init = (
-            "\n".join(
-                [
-                    f"    (clear b{i})\n    (on-table b{i})"
-                    for i in range(1, self.blocks + 1)
-                ]
+
+def get_state(blocks: int, is_goal: bool = False, **kwargs: dict) -> str:
+    offset = "\n    "
+    str_state = ""
+    if not is_goal:
+        str_state += offset + "(arm-empty)"
+
+    vblocks = list(range(1, blocks + 1))
+    random.shuffle(vblocks)
+
+    str_state += offset + f"(clear {get_block(vblocks[0])})"
+    for i in range(0, len(vblocks) - 1):
+        if random.randint(0, 9) == 0:  # 10% chance of building a new tower
+            str_state += offset + f"(on-table {get_block(vblocks[i])})"
+            str_state += offset + f"(clear {get_block(vblocks[i+1])})"
+        else:
+            str_state += (
+                offset
+                + f"(on {get_block(vblocks[i])} {get_block(vblocks[i+1])})"
             )
-            + "    (arm-empty)"
+    str_state += offset + f"(on-table {get_block(vblocks[-1])})"
+    return str_state
+
+
+def get_init(blocks: int, **kwargs: Dict) -> str:
+    return get_state(blocks=blocks)
+
+
+def get_goal(blocks: int, **kwargs: Dict) -> str:
+    return " (and " + get_state(blocks=blocks // 10, is_goal=True) + ")"
+
+
+def generate_problem(args: Dict):
+    str_config = ", ".join([f"{k}={v}" for k, v in args.items()])
+    str_objects = get_objects(**args)
+    str_init = get_init(**args)
+    str_goal = get_goal(**args)
+    with open(
+        f"{args['out_folder']}/p{args['instance_id']:02}.pddl", "w"
+    ) as f_problem:
+        f_problem.write(
+            f";; {str_config}\n\n"
+            f"(define (problem blocksworld-{args['instance_id']:02})\n"
+            f" (:domain blocksworld)\n"
+            f" (:objects {str_objects})\n"
+            f" (:init {str_init})\n"
+            f" (:goal {str_goal}))\n"
         )
-        goal = "\n".join([f"    {line}" for line in self.goal.to_pddl()])
-        return (
-            f"(define (problem blocksworld-{instance_id})\n"
-            f"  (:domain blocksworld)\n"
-            f"  (:objects {objects})\n"
-            f"  (:init\n{init})\n"
-            f"  (:goal (and\n{goal})))\n"
-        )
 
 
-def make_instance_and_plan(blocks: int, goal_count: int) -> Tuple[Instance, str]:
-    instance = Instance(
-        blocks,
-        State([[i] for i in range(1, blocks + 1)]),
-        Goal({(i, i + 1) for i in range(1, goal_count + 1)}, set(), set()),
-    )
-
-    plan = "\n".join(
-        [f"(pickup b{i})\n(stack b{i} b{i+1})" for i in range(goal_count, 0, -1)]
-    )
-
-    return (instance, plan)
-
-
-def main():
-    parser = ArgumentParser(description="Blocksworld HTG instances generator")
+def parse_args() -> Dict[str, int]:
+    # Parser descriptor
+    parser = argparse.ArgumentParser(description="Blocksworld generator")
     parser.add_argument(
         "-b",
         "--blocks",
         type=int,
-        help="number of boxes",
+        help="number of boxes (min 2)",
         required=True,
     )
     parser.add_argument(
-        "-g", "--goal-count", type=int, help="number of goal atoms", required=True
+        "--seed", type=int, default=42, help="random seed (default: 42)"
     )
-    parser.add_argument("-i", "--id", type=int, help="instance id", required=True)
-    parser.add_argument("--outdir", type=str, help="output directory", default=".")
     parser.add_argument(
-        "--plandir",
+        "-out",
+        "--out_folder",
         type=str,
-        help="plan directory, if not provided no plan is generated",
-        default=None,
+        default=".",
+        help='output folder (default: ".")',
+    )
+    parser.add_argument(
+        "-id",
+        "--instance_id",
+        type=int,
+        default=0,
+        help="instance id (default: 0)",
     )
 
+    # Parse arguments
     args = parser.parse_args()
-    (instance, plan) = make_instance_and_plan(args.blocks, args.goal_count)
-    instance_str = f";; blocks={args.blocks} goal_count={args.goal_count} instance_id={args.id}\n\n{instance.to_pddl(args.id)}"
+    blocks = args.blocks
+    out_f = args.out_folder
+    ins_id = args.instance_id
 
-    with open(f"{args.outdir}/p{args.id:02}.pddl", "w") as f:
-        f.write(instance_str)
-    if args.plandir is not None:
-        with open(f"{args.plandir}/p{args.id:02}.plan", "w+") as f:
-            f.write(plan)
+    # Input sanity checks
+    if blocks < 20:
+        sys.exit(-1)
+
+    # Initialize data
+    random.seed(args.seed)  # set the random seed here
+    os.makedirs(
+        name=out_f, exist_ok=True
+    )  # create the output folder if that doesn't exist
+
+    return {
+        "blocks": blocks,
+        "out_folder": out_f,
+        "instance_id": ins_id,
+        "seed": args.seed,
+    }
+
+
+def main():
+    args_dict = parse_args()
+    generate_problem(args=args_dict)
 
 
 if __name__ == "__main__":
