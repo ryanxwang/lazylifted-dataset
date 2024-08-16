@@ -1,4 +1,4 @@
-;; blocks=40, out_folder=htg/blocksworld/training, instance_id=20, seed=2044
+;; blocks=40, out_folder=htg/blocksworld/training, instance_id=20, seed=2044, goal_proportion=0.1
 
 (define (problem blocksworld-20)
  (:domain blocksworld)

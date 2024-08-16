@@ -41,8 +41,8 @@ def get_init(blocks: int, **kwargs: Dict) -> str:
     return get_state(blocks=blocks)
 
 
-def get_goal(blocks: int, **kwargs: Dict) -> str:
-    return " (and " + get_state(blocks=blocks // 10, is_goal=True) + ")"
+def get_goal(blocks: int, goal_proportion: float, **kwargs: Dict) -> str:
+    return " (and " + get_state(blocks=int(blocks * goal_proportion), is_goal=True) + ")"
 
 
 def generate_problem(args: Dict):
@@ -90,12 +90,20 @@ def parse_args() -> Dict[str, int]:
         default=0,
         help="instance id (default: 0)",
     )
+    parser.add_argument(
+        "-g",
+        "--goal-proportion",
+        type=float,
+        default=0.1,
+        help="proportion of blocks involved in the goal",
+    )
 
     # Parse arguments
     args = parser.parse_args()
     blocks = args.blocks
     out_f = args.out_folder
     ins_id = args.instance_id
+    goal_prop = args.goal_proportion
 
     # Input sanity checks
     if blocks < 20:
@@ -112,6 +120,7 @@ def parse_args() -> Dict[str, int]:
         "out_folder": out_f,
         "instance_id": ins_id,
         "seed": args.seed,
+        "goal_proportion": goal_prop,
     }
 
 

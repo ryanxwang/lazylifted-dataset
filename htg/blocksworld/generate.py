@@ -4,18 +4,25 @@ import os
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 CONFIG = {
-    "training": {"blocks": [i for i in range(20, 120)], "starting_seed": 2024},
+    "training": {
+        "blocks": [i for i in range(20, 120)],
+        "starting_seed": 2024,
+        "goal_proportion": 0.1,
+    },
     "testing/easy": {
-        "blocks": [3 * i + 50 for i in range(30)],  # 50 to 137
-        "starting_seed": 420,
+        "blocks": [10 * i + 120 for i in range(30)],  # 120 to 410
+        "starting_seed": 410,
+        "goal_proportion": 0.1,
     },
     "testing/medium": {
-        "blocks": [5 * i + 150 for i in range(30)],  # 150 to 295
-        "starting_seed": 816,
+        "blocks": [20 * i + 500 for i in range(30)],  # 500 to 1080
+        "starting_seed": 1080,
+        "goal_proportion": 0.07,
     },
     "testing/hard": {
-        "blocks": [10 * i + 300 for i in range(30)],  # 300 to 590
-        "starting_seed": 1033,
+        "blocks": [40 * i + 1400 for i in range(30)],  # 1400 to 2560
+        "starting_seed": 2560,
+        "goal_proportion": 0.04,
     },
 }
 
@@ -39,10 +46,11 @@ def main():
 
         num_instances = len(CONFIG[path]["blocks"])
         seed = CONFIG[path]["starting_seed"]
+        goal_proportion = CONFIG[path]["goal_proportion"]
         for i in range(num_instances):
             blocks = CONFIG[path]["blocks"][i]
 
-            command = f"python3 {THIS_DIR}/blocksworld.py -b {blocks} --seed {seed} -id {i} --out {full_path}"
+            command = f"python3 {THIS_DIR}/blocksworld.py -b {blocks} --seed {seed} -id {i} --out {full_path} -g {goal_proportion}"
             os.system(command)
             seed += 1
 
