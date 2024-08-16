@@ -25,7 +25,7 @@ def get_state(blocks: int, is_goal: bool = False, **kwargs: dict) -> str:
 
     str_state += offset + f"(clear {get_block(vblocks[0])})"
     for i in range(0, len(vblocks) - 1):
-        if random.randint(0, 9) == 0:  # 10% chance of building a new tower
+        if random.randint(0, 3) == 0:  # 25% chance of building a new tower
             str_state += offset + f"(on-table {get_block(vblocks[i])})"
             str_state += offset + f"(clear {get_block(vblocks[i+1])})"
         else:
