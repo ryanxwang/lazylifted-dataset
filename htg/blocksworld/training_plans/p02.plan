@@ -7,4 +7,4 @@
 (unstack b5 b1)
 (putdown b5)
 (unstack b1 b18)
-(putdown b1)
+(stack b1 b2)
