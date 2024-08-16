@@ -1,4 +1,4 @@
-;; blocks=48, out_folder=htg/blocksworld//training, instance_id=28, seed=2052
+;; blocks=48, out_folder=htg/blocksworld/training, instance_id=28, seed=2052
 
 (define (problem blocksworld-28)
  (:domain blocksworld)

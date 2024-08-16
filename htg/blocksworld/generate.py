@@ -4,13 +4,18 @@ import os
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 CONFIG = {
-    "training": {
-        "blocks": [i for i in range(20, 120)],
-        "starting_seed": 2024
-    },
+    "training": {"blocks": [i for i in range(20, 120)], "starting_seed": 2024},
     "testing/easy": {
-        "blocks": [10 * i + 100 for i in range(30)],
-        "starting_seed": 2024,
+        "blocks": [3 * i + 50 for i in range(30)],  # 50 to 137
+        "starting_seed": 420,
+    },
+    "testing/medium": {
+        "blocks": [5 * i + 150 for i in range(30)],  # 150 to 295
+        "starting_seed": 816,
+    },
+    "testing/hard": {
+        "blocks": [10 * i + 300 for i in range(30)],  # 300 to 590
+        "starting_seed": 1033,
     },
 }
 
