@@ -1,0 +1,9 @@
+1: (unstack b3 b17 )
+2: (putdown b3 )
+3: (unstack b17 b2 )
+4: (putdown b17 )
+5: (unstack b2 b11 )
+6: (putdown b2 )
+7: (pickup b1 )
+8: (stack b1 b2 )
+; cost = 8
