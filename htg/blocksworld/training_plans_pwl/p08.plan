@@ -1,7 +1,0 @@
-1: (unstack b19 b2 )
-2: (putdown b19 )
-3: (unstack b1 b11 )
-4: (putdown b1 )
-5: (unstack b2 b27 )
-6: (putdown b2 )
-; cost = 6
