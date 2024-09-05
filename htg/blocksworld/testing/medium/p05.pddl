@@ -1,4 +1,4 @@
-;; blocks=760, out_folder=htg/blocksworld/testing/medium, instance_id=5, seed=2565, goal_proportion=0.005
+;; blocks=760, out_folder=htg/blocksworld/testing/medium, instance_id=5, seed=2565, goal_proportion=0.009
 
 (define (problem blocksworld-05)
  (:domain blocksworld)
@@ -963,8 +963,12 @@
     (on b330 b107)
     (on-table b107))
  (:goal  (and 
-    (clear b1)
-    (on b1 b3)
-    (on-table b3)
     (clear b2)
-    (on-table b2))))
+    (on b2 b5)
+    (on-table b5)
+    (clear b1)
+    (on b1 b6)
+    (on b6 b3)
+    (on-table b3)
+    (clear b4)
+    (on-table b4))))

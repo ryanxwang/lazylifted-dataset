@@ -17,12 +17,12 @@ CONFIG = {
     "testing/medium": {
         "blocks": [8 * i + 720 for i in range(30)],  # 720 to 952
         "starting_seed": 2560,
-        "goal_proportion": 0.005,
+        "goal_proportion": 0.009,
     },
     "testing/hard": {
         "blocks": [9 * i + 940 for i in range(30)],  # 960 to 1221
         "starting_seed": 2560,
-        "goal_proportion": 0.005,
+        "goal_proportion": 0.008,
     },
 }
 
