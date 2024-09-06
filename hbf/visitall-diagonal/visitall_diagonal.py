@@ -10,12 +10,18 @@ def get_objects(side: int) -> str:
 
 def get_init_atoms(args: Dict) -> List[str]:
     d = args["dimension"]
+    side = args["side"]
     init_position = " ".join([f"p0" for i in range(d)])
 
-    return [
-        f"(at-robot {init_position})",
-        f"(visited {init_position})",
-    ] + [f"(neighbour {f'p{i}'} {f'p{i+1}'})" for i in range(d - 1)]
+    return (
+        [
+            f"(at-robot {init_position})",
+            f"(visited {init_position})",
+        ]
+        + [f"(can-move {f'p{i}'} {f'p{i+1}'})" for i in range(side - 1)]
+        + [f"(can-move {f'p{i}'} {f'p{i-1}'})" for i in range(1, side)]
+        + [f"(can-move {f'p{i}'} {f'p{i}'})" for i in range(side)]
+    )
 
 
 def get_goal_atoms(args: Dict) -> List[str]:
