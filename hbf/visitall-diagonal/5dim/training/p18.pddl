@@ -1,4 +1,5 @@
 ;; dimension=5, side=15, chebyshev_distance=5.6, num_goals=1, out_folder=./5dim/training, seed=60, instance_id=18
+;; (1, 3, 1, 4, 2)
 
 (define (problem visitall-diagonal-5-dim-18)
   (:domain visitall-diagonal-5-dim)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from typing import Dict, List
+from typing import Dict, List, Set, Tuple
 import argparse
 import random
 
@@ -24,29 +24,37 @@ def get_init_atoms(args: Dict) -> List[str]:
     )
 
 
-def get_goal_atoms(args: Dict) -> List[str]:
+def get_goal_positions(args: Dict) -> List[Tuple[int]]:
     d = args["dimension"]
     n = args["num_goals"]
     max_distance = args["chebyshev_distance"]
 
-    goal_atoms = set()
-    while len(goal_atoms) < n:
-        pos = [int(random.random() * max_distance) for _ in range(d)]
-        goal_atoms.add(f"(visited {' '.join([f'p{pos[j]}' for j in range(d)])})")
+    goal_positions = set()
+    while len(goal_positions) < n:
+        pos = tuple([int(random.random() * max_distance) for _ in range(d)])
+        goal_positions.add(pos)
 
-    return goal_atoms
+    return list(goal_positions)
 
 
 def generate_problem(args: Dict):
     random.seed(args["seed"])
     d = args["dimension"]
+    goal_positions = get_goal_positions(args)
     str_config = ", ".join([f"{k}={v}" for k, v in args.items()])
     str_init = "".join([f"    {atom}\n" for atom in get_init_atoms(args)])
-    str_goal = "".join([f"    {atom}\n" for atom in get_goal_atoms(args)])
+    goal_atoms = [
+        f"(visited {' '.join([f'p{i}' for i in pos])})" for pos in goal_positions
+    ]
+    str_goal = "".join([f"    {atom}\n" for atom in goal_atoms])
+    str_goal_for_solver = "\n".join(
+        f";; {goal_position}" for goal_position in goal_positions
+    )
 
     with open(f"{args['out_folder']}/p{args['instance_id']:02}.pddl", "w") as f_problem:
         f_problem.write(
-            f";; {str_config}\n\n"
+            f";; {str_config}\n"
+            f"{str_goal_for_solver}\n\n"
             f"(define (problem visitall-diagonal-{d}-dim-{args['instance_id']:02})\n"
             f"  (:domain visitall-diagonal-{d}-dim)\n"
             f"  (:objects {get_objects(side=args['side'])})\n"

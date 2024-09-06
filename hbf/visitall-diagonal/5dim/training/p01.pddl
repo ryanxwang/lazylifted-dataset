@@ -1,4 +1,6 @@
 ;; dimension=5, side=15, chebyshev_distance=2.2, num_goals=2, out_folder=./5dim/training, seed=43, instance_id=1
+;; (1, 0, 1, 0, 0)
+;; (0, 1, 0, 1, 1)
 
 (define (problem visitall-diagonal-5-dim-01)
   (:domain visitall-diagonal-5-dim)
@@ -51,7 +53,7 @@
     (can-move p14 p14)
   )
   (:goal (and
-    (visited p0 p1 p0 p1 p1)
     (visited p1 p0 p1 p0 p0)
+    (visited p0 p1 p0 p1 p1)
   ))
 )
