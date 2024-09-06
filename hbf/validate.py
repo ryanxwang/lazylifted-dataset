@@ -33,6 +33,8 @@ def main():
             if not "Successful plan" in out.decode():
                 print("-" * 60 + "\n" + f"Failed: {instance_file}, VAL output:")
                 print(out.decode())
+            else:
+                print(f"Validated: {instance_file}")
 
 
 if __name__ == "__main__":
