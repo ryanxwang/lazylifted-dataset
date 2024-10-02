@@ -1,2 +1,6 @@
 htg-benchmarks
 __pycache__
+.DS_Store
+*.o
+
+hbf/freecell/freecell
