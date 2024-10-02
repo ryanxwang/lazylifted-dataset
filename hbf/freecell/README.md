@@ -21,4 +21,7 @@
 
 ## Updates for HBF
 
-- Aces are just numbered 1, not A.
+We make the following changes to the original generator:
+
+* Aces are just numbered 1, not A.
+* Renamed all generated predicates to lowercase.
