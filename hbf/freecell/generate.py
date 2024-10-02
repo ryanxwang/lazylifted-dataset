@@ -65,7 +65,7 @@ def main():
                 ]
             )
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
-            output_file = os.path.join(full_path, f"p{i+1:02}.txt")
+            output_file = os.path.join(full_path, f"p{i+1:02}.pddl")
             with open(output_file, "w") as f:
                 f.write(result.stdout)
 
