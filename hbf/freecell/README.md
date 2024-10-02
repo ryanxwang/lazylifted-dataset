@@ -15,6 +15,8 @@
   * -s number of suits (minimal 1, maximal 4)
   * -i number of initial stacks (minimal 1)
   * -0 .. -3 number of cards in each suite
+  * -0g .. -3g number of cards for each suite that need to be placed in
+    headcells in the goal
   * -r random seed (optional)
 * Generation: As long as there is a card that has not yet been placed somewhere,
   choose one such card at random, and place it randomly on one initial stack.

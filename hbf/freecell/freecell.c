@@ -51,7 +51,7 @@ Bool setup_suit_sizes(int vec);
 
 /* command line params
  */
-int gcells, gcols, gsuits, *gsuit_size, gstacks;
+int gcells, gcols, gsuits, *gsuit_size, ggoal_suit_size, gstacks, gseed;
 
 /* random configuration
  */
@@ -93,8 +93,8 @@ int main(int argc, char *argv[])
 
     /* header
      */
-    printf("(define (problem freecell-f%d-c%d-s%d-i%d",
-           gcells, gcols, gsuits, gstacks);
+    printf("(define (problem freecell-f%d-c%d-s%d-i%d-g%d-r%d",
+           gcells, gcols, gsuits, gstacks, ggoal_suit_size, gseed);
     for (i = 0; i < gsuits; i++)
     {
         printf("-%d%d", i, gsuit_size[i]);
@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
     {
         printf("\n(home ");
         print_suit(i);
-        print_card(gsuit_size[i] - 1);
+        print_card(ggoal_suit_size - 1);
         printf(")");
     }
     printf("\n)");
@@ -516,18 +516,19 @@ void usage(void)
 {
     printf("\nusage:\n");
 
-    printf("\nOPTIONS   DESCRIPTIONS\n\n");
-    printf("-f <num>    number of (free)cells (minimal 0)\n");
-    printf("-c <num>    number of cols (minimal 1)\n");
-    printf("-s <num>    number of suits (minimal 1, maximal 4)\n");
+    printf("\nOPTIONS           DESCRIPTIONS\n\n");
+    printf("-f <num>          number of (free)cells (minimal 0)\n");
+    printf("-c <num>          number of cols (minimal 1)\n");
+    printf("-s <num>          number of suits (minimal 1, maximal 4)\n");
     printf("-0 .. -3 <num>    suit sizes\n");
-    printf("-i <num>    number of initial stacks (minimal 1)\n\n");
-    printf("-r <num>    random seed (optional)\n\n");
+    printf("-g <num>          goal cards per suit\n");
+    printf("-i <num>          number of initial stacks (minimal 1)\n\n");
+    printf("-r <num>          random seed (optional)\n\n");
 }
 
 Bool process_command_line(int argc, char *argv[])
 {
-    int seed = -1;
+    gseed = -1;
     char option;
     gsuit_size = (int *)calloc(4, sizeof(int));
 
@@ -568,11 +569,14 @@ Bool process_command_line(int argc, char *argv[])
                 case '3':
                     sscanf(*argv, "%d", &(gsuit_size[3]));
                     break;
+                case 'g':
+                    sscanf(*argv, "%d", &ggoal_suit_size);
+                    break;
                 case 'i':
                     sscanf(*argv, "%d", &gstacks);
                     break;
                 case 'r':
-                    sscanf(*argv, "%d", &seed);
+                    sscanf(*argv, "%d", &gseed);
                     break;
                 default:
                     printf("\n\nunknown option: %c entered\n\n", option);
@@ -597,12 +601,12 @@ Bool process_command_line(int argc, char *argv[])
 
     /* seed the random() function
      */
-    if (seed == -1)
+    if (gseed == -1)
     {
-        seed = (int)time(NULL);
+        gseed = (int)time(NULL);
     }
 
-    srandom(seed);
+    srandom(gseed);
 
     return TRUE;
 }

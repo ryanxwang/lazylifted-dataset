@@ -1,4 +1,4 @@
-(define (problem freecell-f4-c8-s4-i8-010-110-210-310
+(define (problem freecell-f20-c8-s4-i8-g2-r2025-010-110-210-310
 )(:domain freecell)
 (:objects 
           c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10
@@ -6,7 +6,7 @@
           s0 s1 s2 s3 s4 s5 s6 s7 s8 s9 s10
           d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 d10
  - card
-          celln0 celln1 celln2 celln3 celln4 
+          celln0 celln1 celln2 celln3 celln4 celln5 celln6 celln7 celln8 celln9 celln10 celln11 celln12 celln13 celln14 celln15 celln16 celln17 celln18 celln19 celln20 
  - cellnum
           coln0 coln1 coln2 coln3 coln4 coln5 coln6 coln7 coln8 
  - colnum
@@ -64,6 +64,22 @@
 (cellsuccessor celln2 celln1)
 (cellsuccessor celln3 celln2)
 (cellsuccessor celln4 celln3)
+(cellsuccessor celln5 celln4)
+(cellsuccessor celln6 celln5)
+(cellsuccessor celln7 celln6)
+(cellsuccessor celln8 celln7)
+(cellsuccessor celln9 celln8)
+(cellsuccessor celln10 celln9)
+(cellsuccessor celln11 celln10)
+(cellsuccessor celln12 celln11)
+(cellsuccessor celln13 celln12)
+(cellsuccessor celln14 celln13)
+(cellsuccessor celln15 celln14)
+(cellsuccessor celln16 celln15)
+(cellsuccessor celln17 celln16)
+(cellsuccessor celln18 celln17)
+(cellsuccessor celln19 celln18)
+(cellsuccessor celln20 celln19)
 (colsuccessor coln1 coln0)
 (colsuccessor coln2 coln1)
 (colsuccessor coln3 coln2)
@@ -194,7 +210,7 @@
 (home h0)
 (home s0)
 (home d0)
-(cellspace celln4)
+(cellspace celln20)
 (colspace coln0)
 
 (bottomcol c1)
@@ -255,10 +271,10 @@
 )
 (:goal
 (and
-(home c10)
-(home h10)
-(home s10)
-(home d10)
+(home c2)
+(home h2)
+(home s2)
+(home d2)
 )
 )
 )
