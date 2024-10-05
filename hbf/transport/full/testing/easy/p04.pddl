@@ -1,4 +1,4 @@
-;; vehicles=3, packages=2, locations=7, density=1.0, fully_connected=True, max_capacity=2, out_folder=./fully/testing/easy, instance_id=4, seed=2027
+;; vehicles=3, packages=2, locations=7, density=1.0, fully_connected=True, max_capacity=2, out_folder=./full/testing/easy, instance_id=4, seed=2027
 
 (define (problem transport-04)
  (:domain transport)

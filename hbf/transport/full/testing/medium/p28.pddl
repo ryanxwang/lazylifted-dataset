@@ -1,4 +1,4 @@
-;; vehicles=19, packages=41, locations=38, density=1.0, fully_connected=True, max_capacity=4, out_folder=./fully/testing/medium, instance_id=28, seed=2051
+;; vehicles=19, packages=41, locations=38, density=1.0, fully_connected=True, max_capacity=4, out_folder=./full/testing/medium, instance_id=28, seed=2051
 
 (define (problem transport-28)
  (:domain transport)
