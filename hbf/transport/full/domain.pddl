@@ -5,7 +5,7 @@
 ;  - capacity-number predicate now is capacity
 ;  - remove the road predicate to allow fully connected graph
 (define (domain transport)
-  (:requirements :typing)
+  (:requirements :typing :negative-preconditions)
   (:types
         size location locatable - object
         vehicle package - locatable
