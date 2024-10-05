@@ -1,0 +1,48 @@
+;; vehicles=10, packages=6, locations=20, density=1.0, fully_connected=True, max_capacity=4, out_folder=./fully/testing/medium, instance_id=2, seed=2025
+
+(define (problem transport-02)
+ (:domain transport)
+ (:objects 
+    v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 - vehicle
+    p1 p2 p3 p4 p5 p6 - package
+    l1 l2 l3 l4 l5 l6 l7 l8 l9 l10 l11 l12 l13 l14 l15 l16 l17 l18 l19 l20 - location
+    c0 c1 c2 c3 c4 - size
+    )
+ (:init (capacity v1 c1)
+    (capacity v2 c4)
+    (capacity v3 c2)
+    (capacity v4 c1)
+    (capacity v5 c3)
+    (capacity v6 c4)
+    (capacity v7 c2)
+    (capacity v8 c1)
+    (capacity v9 c4)
+    (capacity v10 c4)
+    (capacity-predecessor c0 c1)
+    (capacity-predecessor c1 c2)
+    (capacity-predecessor c2 c3)
+    (capacity-predecessor c3 c4)
+    (at p1 l4)
+    (at p2 l2)
+    (at p3 l4)
+    (at p4 l7)
+    (at p5 l13)
+    (at p6 l4)
+    (at v1 l14)
+    (at v2 l2)
+    (at v3 l20)
+    (at v4 l1)
+    (at v5 l18)
+    (at v6 l17)
+    (at v7 l3)
+    (at v8 l7)
+    (at v9 l7)
+    (at v10 l1)
+    )
+ (:goal  (and 
+    (at p1 l8)
+    (at p2 l13)
+    (at p3 l15)
+    (at p4 l12)
+    (at p5 l17)
+    (at p6 l1))))
