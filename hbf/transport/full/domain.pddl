@@ -22,6 +22,7 @@
     :parameters (?v - vehicle ?l1 ?l2 - location)
     :precondition (and
         (at ?v ?l1)
+        (not (at ?v ?l2))
       )
     :effect (and
         (not (at ?v ?l1))
