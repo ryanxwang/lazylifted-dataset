@@ -22,8 +22,8 @@
         (on box1 box7)
         (on-base box7 base2)
     )
-    (:goal
+    (:goal (and 
         (removed box1)
         (removed box2)
-    )
+    ))
 )

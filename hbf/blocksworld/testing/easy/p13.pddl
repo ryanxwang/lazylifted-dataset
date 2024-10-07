@@ -1,4 +1,4 @@
-;; blocks=591, out_folder=htg/blocksworld/testing/easy, instance_id=13, seed=1093, goal_proportion=0.01
+;; blocks=591, out_folder=./testing/easy, instance_id=13, seed=1093, goal_proportion=0.01
 
 (define (problem blocksworld-13)
  (:domain blocksworld)

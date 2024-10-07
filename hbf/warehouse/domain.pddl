@@ -11,7 +11,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (domain warehouse)
-    (:requirements :strips :typing)
+    (:requirements :strips :typing :equality)
     (:types box base) 
     (:predicates 
         (on ?b1 - box ?b2 - box)
@@ -28,6 +28,7 @@
             (clear ?b)
             (on ?b ?old-under)
             (clear ?new-under)
+            (not (= ?new-under ?b))
         )
         :effect (and
             (on ?b ?new-under)
@@ -58,6 +59,7 @@
             (clear ?b)
             (on-base ?b ?base)
             (clear ?new-under)
+            (not (= ?new-under ?b))
         )
         :effect (and
             (on ?b ?new-under)
@@ -93,6 +95,7 @@
             (removed ?b)
             (clear ?under)
             (not (on ?b ?under))
+            (not (clear ?b))
         )
     )
 
@@ -107,6 +110,7 @@
             (removed ?b)
             (clear-base ?base)
             (not (on-base ?b ?base))
+            (not (clear ?b))
         )
     )
 )

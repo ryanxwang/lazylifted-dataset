@@ -5,8 +5,8 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 CONFIG = {
     "training": {
-        "boxes": [int(10 + 40 / 90 * i) for i in range(90)],  # 10 to 50
-        "bases": [int(2 + 8 / 90 * i) for i in range(90)],  # 2 to 10
+        "boxes": [int(10 + 40 / 30 * i) for i in range(30)],  # 10 to 50
+        "bases": [int(2 + 8 / 30 * i) for i in range(30)],  # 2 to 10
         "starting_seed": 42,
         "remove_proportion": 0.20,
     },

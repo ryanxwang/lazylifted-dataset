@@ -61,7 +61,7 @@ def generate_problem(args: Dict[str, Any]) -> None:
             f"    (:domain warehouse)\n"
             f"    (:objects\n{get_objects(**args)}\n    )\n"
             f"    (:init\n{get_init(boxes_to_remove, **args)}\n    )\n"
-            f"    (:goal\n{get_goal(boxes_to_remove)}\n    )\n"
+            f"    (:goal (and \n{get_goal(boxes_to_remove)}\n    ))\n"
             ")"
         )
 
