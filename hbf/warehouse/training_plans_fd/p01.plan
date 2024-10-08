@@ -1,0 +1,6 @@
+(remove box1 box7)
+(move box9 box10 box7)
+(move box10 box4 box9)
+(move box4 box2 box10)
+(remove box2 box8)
+; cost = 5 (unit cost)
