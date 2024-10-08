@@ -1,0 +1,41 @@
+;; boxes=19, remove_proportion=0.2, bases=3, instance_id=8, output=./testing/easy, seed=2031
+
+(define (problem warehouse-08)
+    (:domain warehouse)
+    (:objects
+        box1 box2 box3 box4 box5 box6 box7 box8 box9 box10 box11 box12 box13 box14 box15 box16 box17 box18 box19 - box
+        base1 base2 base3 - base
+    )
+    (:init
+        (to-remove box6)
+        (to-remove box11)
+        (to-remove box12)
+        (clear box18)
+        (on box18 box6)
+        (on box6 box16)
+        (on box16 box13)
+        (on box13 box12)
+        (on box12 box5)
+        (on box5 box10)
+        (on-base box10 base1)
+        (clear box17)
+        (on box17 box15)
+        (on box15 box7)
+        (on box7 box2)
+        (on box2 box3)
+        (on box3 box1)
+        (on box1 box9)
+        (on box9 box8)
+        (on-base box8 base2)
+        (clear box4)
+        (on box4 box11)
+        (on box11 box19)
+        (on box19 box14)
+        (on-base box14 base3)
+    )
+    (:goal (and 
+        (removed box6)
+        (removed box11)
+        (removed box12)
+    ))
+)
