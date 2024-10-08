@@ -5,28 +5,28 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 CONFIG = {
     "training": {
-        "boxes": [int(10 + 40 / 30 * i) for i in range(30)],  # 10 to 50
-        "bases": [int(2 + 8 / 30 * i) for i in range(30)],  # 2 to 10
+        "boxes": [int(10 + 90 / 30 * i) for i in range(30)],  # 10 to 100
+        "bases": [int(4 + 36 / 30 * i) for i in range(30)],  # 4 to 40
         "starting_seed": 42,
-        "remove_proportion": 0.20,
+        "remove_proportion": 0.05,
     },
     "testing/easy": {
-        "boxes": [int(10 + 40 / 30 * i) for i in range(30)],  # 10 to 50
-        "bases": [int(2 + 8 / 30 * i) for i in range(30)],  # 2 to 10
+        "boxes": [int(10 + 90 / 30 * i) for i in range(30)],  # 10 to 100
+        "bases": [int(4 + 36 / 30 * i) for i in range(30)],  # 4 to 40
         "starting_seed": 2024,
-        "remove_proportion": 0.20,
+        "remove_proportion": 0.05,
     },
     "testing/medium": {
-        "boxes": [int(50 + 50 / 30 * i) for i in range(30)],  # 50 to 100
-        "bases": [int(15 + 15 / 30 * i) for i in range(30)],  # 15 to 30
+        "boxes": [int(100 + 50 / 30 * i) for i in range(30)],  # 100 to 150
+        "bases": [int(40 + 20 / 30 * i) for i in range(30)],  # 40 to 60
         "starting_seed": 2024,
-        "remove_proportion": 0.20,
+        "remove_proportion": 0.05,
     },
     "testing/hard": {
-        "boxes": [int(100 + 50 / 30 * i) for i in range(30)],  # 100 to 150
-        "bases": [int(30 + 15 / 30 * i) for i in range(30)],  # 30 to 45
+        "boxes": [int(150 + 50 / 30 * i) for i in range(30)],  # 150 to 200
+        "bases": [int(60 + 20 / 30 * i) for i in range(30)],  #  60 to 80
         "starting_seed": 2024,
-        "remove_proportion": 0.20,
+        "remove_proportion": 0.05,
     },
 }
 
@@ -54,6 +54,8 @@ def main():
         for i in range(num_instances):
             boxes = CONFIG[path]["boxes"][i]
             bases = CONFIG[path]["bases"][i]
+            if int(boxes * remove_proportion) < 1:
+                remove_proportion = 1.01 / boxes
             command = " ".join(
                 [
                     "python3",
