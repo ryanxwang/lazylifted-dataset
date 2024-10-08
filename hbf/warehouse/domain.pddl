@@ -11,7 +11,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (domain warehouse)
-    (:requirements :strips :typing :equality)
+    (:requirements :strips :typing :equality :negative-preconditions)
     (:types box base) 
     (:predicates 
         (on ?b1 - box ?b2 - box)
