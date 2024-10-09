@@ -14,3 +14,5 @@ following differences:
   contains random towers of average height 4.
 
 The generator is modified from the IPC23 Learning Track blocksworld generator.
+The training plans are generated from LAMA-First. Since there are many training
+plans, there is a random subset that might be more suitable for training.

@@ -5,7 +5,7 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 CONFIG = {
     "training": {
-        "blocks": [10 * i + 120 for i in range(30)],  # 120 to 410
+        "blocks": [3 * i + 120 for i in range(100)],  # 120 to 417
         "starting_seed": 2024,
         "goal_proportion": 0.03,
     },
