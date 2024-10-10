@@ -4,10 +4,10 @@
 ; By: Ryan Xiao Wang, 2024
 ; License: MIT
 ;
-; The aim is to move remove exactly the boxes that are marked for removal.
-; Boxes start on stacks of blocks that are located on a fixed number of bases,
-; and can be moved between stacks and bases. Boxes can be removed from the
-; stacks and bases they are on when they are the top box.
+; The aim is to remove exactly the boxes that are marked for removal.
+; Stacks of boxes are initially placed on a fixed number of bases,
+; and can be moved around. Boxes can be removed when they are the top of their
+; stack and are marked for removal.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (domain warehouse)
